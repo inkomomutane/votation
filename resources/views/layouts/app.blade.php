@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+   
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,13 +18,25 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+      <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    
+  @stack('css')
 </head>
-<body>
+<body >
+    
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
+                </a>
+
+
+                 <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
+                    {{ __('Painel do Eleitor') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -72,9 +84,72 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 col-sm-12">
+             @if (session()->has('success'))
+                            <div id="alert-session" class=" shadow-sm alert alert-success alert-session alert-dismissible fadeInDown animated  show container col-sm-8 --green">
+                                {{session()->get('success')}}
+                            </div>
+                        @endif
+                        @if (session()->has('error'))
+                            <div id="alert-danger" class="shadow-sm alert alert-danger alert-dismissible fadeInDown animated  show container col-sm-8 --green">
+                                {{session()->get('error')}}
+                            </div>
+                        @endif
             @yield('content')
         </main>
     </div>
 </body>
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+
+  @stack('js')
+  <script type="text/javascript">
+      $(document).ready(function() {
+    // show the alert
+    setTimeout(function() {
+        $("#alert-session").addClass('fadeOutUp');
+    }, 2000);
+    setTimeout(function() {
+        $("#alert-session").alert('close');
+    }, 3000);
+
+    setTimeout(function() {
+        $("#alert-session-js").addClass('fadeOutUp');
+    }, 2000);
+    setTimeout(function() {
+        $("#alert-session-js").alert('close');
+    }, 3000);
+    
+});
+  </script>
+
+  <script type="text/javascript">
+      $(document).ready(function() {
+    // show the alert
+    setTimeout(function() {
+        $("#alert-danger").addClass('fadeOutUp');
+    }, 2000);
+    setTimeout(function() {
+        $("#alert-danger").alert('close');
+    }, 3000);
+
+    $(document).on('mousemove',function(){
+         setTimeout(function() {
+        $("#alert-session-js-js").addClass('fadeOutUp');
+    }, 2000);
+    setTimeout(function() {
+        $("#alert-session-js-js").alert('close');
+    }, 3000);
+    
+    });
+
+    
+});
+  </script>
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Candidate;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        
+        $candidate = Candidate::all();
+        
+        $result = [
+            'candidatesCount' =>$candidate->count(),
+            'candidates' =>$candidate->sortByDesc(function ($product, $key) {
+                    return count($product->users);
+                }),
+        ];
+        return view('home',$result);
     }
 }

@@ -17,7 +17,7 @@ class CreateCandidatesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('votes')->default(0);
-            $table->string('email')->nullable();
+            $table->string('funcao')->nullable();
             $table->timestamps();
         });
     }

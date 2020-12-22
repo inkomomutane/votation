@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Voter;
 
+use App\Candidate;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +16,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('Voter.dashboard');
+        return view('Voter.dashboard')->with('candidates',Candidate::all());
     }
 
     /**
@@ -67,9 +69,11 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,User $user,Candidate $candidate)
     {
-        //
+        $user->update(['candidate_id'=>$candidate->id]);
+        session()->flash('success','Parabens pelo voto. a(ao)'.$candidate->name ."!");
+        return redirect(route('admin.dashboard')); 
     }
 
     /**

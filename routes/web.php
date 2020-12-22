@@ -17,12 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 
-Route::group(['as'=>'admin.', 'prefix' => 'admin','namespace'=>'admin','middleware'=>['auth','admin','verified']], function () {
+Route::group(['as'=>'admin.', 'prefix' => 'admin','namespace'=>'admin','middleware'=>['auth','admin']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::post('/dashboard/', 'DashboardController@store')->name('store');
+    Route::get('/dashboard/js', 'DashboardController@jsonCreate')->name('jsonCreate');
+    Route::put('/dashboard/{candidate}', 'DashboardController@update')->name('update');
+    Route::delete('/dashboard/{candidate}', 'DashboardController@destroy')->name('delete');
+    
 });
-Route::group(['as'=>'voter.', 'prefix' => 'voter','namespace'=>'voter','middleware'=>['auth','voter','verified']], function () {
+Route::group(['as'=>'voter.', 'prefix' => 'voter','namespace'=>'voter','middleware'=>['auth','voter',]], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::post('/dashboard', 'DashboardController@store')->name('store');
+    Route::put('/dashboard/{user}/{candidate}', 'DashboardController@update')->name('update');
+    Route::delete('/dashboard/{candidate}', 'DashboardController@destroy')->name('delete');
+     
 });
+Route::get('/dashboard/results','HomeController@index')->name('resultados')->middleware('auth');
