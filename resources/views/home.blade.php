@@ -57,8 +57,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="progress">
-                                <div class="progress-bar" style="width:{{  ($user->users->count()/$totalVotes)*100}}%; background:@if($count == 1)rgb(47, 164, 47)@endif @if($count == 2)#f7d104 @endif @if($count == 3)#f7a6ad @endif @if($count == 4)rgb(38, 180, 249)@endif">
-                                    <div class="progress-value">{{  ($user->users->count()/$totalVotes)*100}}%</div>
+                                <div class="progress-bar" style="width: @if($totalVotes ==0) 0%  @else {{  ($user->users->count()/$totalVotes)*100}}%; background:@if($count == 1)rgb(47, 164, 47)@endif @if($count == 2)#f7d104 @endif @if($count == 3)#f7a6ad @endif @if($count == 4)rgb(38, 180, 249)@endif @endif">
+                                    <div class="progress-value"> @if($totalVotes ==0) 0%  @else  {{  ($user->users->count()/$totalVotes)*100}}% @endif</div>
                                 </div>
                         </div>
                     </div>

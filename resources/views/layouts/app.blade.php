@@ -24,11 +24,19 @@
 
     
   @stack('css')
+  <style>
+      .main-header{
+          position:-webkit-sticky; 
+          position:sticky; 
+          top:0;
+          z-index: 9000;
+          }
+      </style>
 </head>
 <body >
     
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm main-header">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
